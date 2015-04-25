@@ -1,113 +1,90 @@
-//program sprawdzający czy graf jest eulerowski
+/* Program wczytujący dane i obliczajacy stopnie grafu i jego wierzcholkow
+*(C) 2015 Marcin Dawidowski
+*/
+
 #include <stdio.h>
-
-	int vertices, edges;								
-	int i, j, x, y;						
-	int start = 0, stop = 0, status = 0;	
-	int max = 0, degree = 0;		
-	int wiersz = 0, kolumna = 0;		
-	int pa;
-	int graf[1][1];
-	
 int main(){
+  int vertices, edges; 
+  int i, j, x, y = 0;
+  int v1 = 0, v2 = 0, status = 0; 
+  int memory[y];     // ciąg kolejno wybranych cyfr
+  int vmax = 0, degree = 0; 
+  printf("Prosze podac liczbe wierzcholkow.\n");
+  scanf("%d", &vertices);
+  printf("Prosze podac liczbe krawedzi.\n");
+  scanf("%d", &edges);
+  // tworzenie pustej tablicy (macierzy) dla grafu
+  int pom = 0;
+  int graph[vertices][edges];
+  int visited[y];
+  for (i = 0; i < vertices; i++) {
+    for (j = 0; j < vertices; j++) {
+      graph[i][j] = 0;
+      visited[y] = 0;
+      memory[x] = 0; } }
+ 
 
-	printf("Proszę podać liczbę wierzchołków: \t");
-	scanf("%d", &vertices);
-	
-	printf("Proszę podać liczbę krawędzi: \t\t");
-	scanf("%d", &edges);
-	
-	int graf[vertices][vertices];
-	
-	// zerowanie macierzy
-	for (i=0; i<vertices; i++) {
-		for (j=0; j<vertices; j++) {
-			graf[i][j] = 0; } }
+// wczytywanie danych
+   for(x = 0; x < edges; x++){ 
+     
+    do{
+      status = 1;
+      printf("Prosze wprowadzic pierwszy wierzcholek %d krawedzi: \t", x+1);
+      scanf("%d",&v1);
+      memory[y] = v1;
+      printf("Prosze wprowadzic drugi wierzcholek %d krawedzi: \t", x+1);
+      scanf("%d",&v2);
+      memory[y+1] = v2;
+      y += 2;
+      // sprawdzanie poprawnosci wprowadzanych danych
+    if (v1 < 1 || v2 < 1){
+        printf("Zle! Indeks Wierzcholkow nie moze byc mniejszy niz 1.\n");
+        status=0; }
+    if (v1 > vertices || v2 > vertices){
+        printf("Zle! Wierzcholek nie moze byc wiekszy niz: (%d)!\n", vertices);
+        status=0; }
 
-	// wczytywanie grafu	
-	for(x=0; x<edges; x++){				
-		do{
-			status= 1;
-			printf("Prosze wprowadzic pierwszy wierzcholek krawedzi %d: \t", x+1);
-			scanf("%d",&start);
-			printf("Prosze wprowadzic drugi wierzcholek krawedzi %d: \t", x+1);
-			scanf("%d",&stop);            
-               	
-            if (start < 1 || stop < 1){ 
-               	printf("Error!! Indeks Wierzcholkow nie moze byc mniejszy od 1.\n");
-               	status=0;	}
+   
 
-            if (start > vertices || stop > vertices){
-               	printf("Error!! Wierzcholek nie moze byc wiekszy od liczby: (%d)!\n", vertices);
-               	status=0;	}
-        }        
-		while (!status);
-        
-	if (graf[start-1][stop-1]==1){
-		printf("Podany Graf nie moze byc multigrafem.\n");
-	return main();	}
-	
-	// wczytywanie do macierzy dwuwymiarowej 'graf'
-	graf[start-1][stop-1] += 1;
-	graf[stop-1][start-1] += 1; 
-	
-	}	// koniec duzego fora
-	
-	printf(" \n");	// linia przerwy
-	
-	// stopien wierzcholka
-	for(x=0; x<vertices; x++){    
-		for(y=0; y<=vertices-1; y++){       		   
-			degree += graf[x][y]; }
-		  if(degree%2==0){
-			pa+=1; }
-		                        
-		  printf("\t Wierzcholek o numerze %d ma stopien %d. \n", x+1, degree);
-	          if ( degree > max ){ 
-			max = degree;
-		}
-       		degree=0; 
-	}	// koniec malego fora
-	
-	printf(" \n");
-	printf("\t Stopien grafu wynosi: %d\n", max);	// Stopien grafu
-	
-	printf("\n\t Macierz sasiedztwa ma nastepujaca postac :\n");
-	for(x=0; x<vertices; x++){
-   	for(y=0; y<vertices-1; y++){     
-		printf("\t %d",graf[x][y]);} 
-        printf("\t %d\n",graf[x][y]);}
-		
-	//Trzeci for
-	for(x=0;x<vertices;x++){    
-		for(y=0;y<=vertices-1;y++){
-			if(vertices%2==0){
-				if(graf[y][x]==1){
-				wiersz=1; }
-				if(graf[y][x]==0){
-				kolumna=1; }
-            }    
-			else{
-			if(graf[y][x]==1){
-            wiersz=1; }
-			if(graf[y][x]==0){
-			kolumna=1; }
-			}
-		} 
-	}
-	
-	printf(" \n");
-	
-//	printf("pa= %d, max= %d, wiersz= %d, kolumna= %d.\n", pa, max, wiersz, kolumna); 
-	
-	if(vertices>edges){
-		printf("\t Niestety. Graf nie jest eulerowski. \n"); }
-		else {
-			if(pa>=1 & max%2==0 & wiersz==kolumna){
-			printf("\t Graf jest eulerowski \n"); }
-				else{
-					printf("\t Niestety. Graf nieeulerowski.\n"); }
-		}
+   printf(" \n"); 
+    }
+    
+    while (!status); 
+       // wczytywanie do tablicy
+     graph[v1-1][v2-1] += 1;
+     graph[v2-1][v1-1] += 1; 
+  
+ }
 
-return 0;
+//obliczanie stopnia wierzcholkow
+  for(x = 0; x < vertices; x++){
+    for(y = 0; y <= vertices - 1; y++){
+      degree += graph[x][y]; }
+      printf("Wierzcholek %d ma stopien %d. \n", x+1, degree);
+           if (degree <= 0 || degree % 2 !=0){
+       printf("Graf niespojny lub posiada wierzcholek nieparzystego stopnia\n");
+      return 0;}
+     
+  // obliczanie stopnia grafu
+	   //       if ( degree > vmax ){
+	   // vmax = degree;
+	   // }
+	     degree=0; 
+	    } 
+  
+  //printf(" \n");
+  //printf("Stopien grafu wynosi: %d\n", vmax); 
+      
+  y = 0;
+  printf("%d", memory[y]);
+  printf("%d\n", memory[y+1]);
+   for(y = 0; y < vertices; y++){
+ pom = memory[y];
+ visited[pom] += 1;
+ }
+   for(y = 0; y < vertices; y++){
+ if(visited[y] = 0 ){
+   printf("Graf nie jest grafem eulerowskim");}
+ else printf("Graf jest eulerowski");
+ } 
 }
