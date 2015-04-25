@@ -20,8 +20,8 @@ int main(){
   for (i = 0; i < vertices; i++) {
     for (j = 0; j < vertices; j++) {
       graph[i][j] = 0;
-      visited[y] = 0;
-      memory[x] = 0; } }
+      visited[i] = 0;
+      memory[i] = 0; } }
  
 
 // wczytywanie danych
@@ -66,25 +66,33 @@ int main(){
       return 0;}
      
   // obliczanie stopnia grafu
-	   //       if ( degree > vmax ){
-	   // vmax = degree;
-	   // }
-	     degree=0; 
-	    } 
+	if ( degree > vmax ){
+	  max = degree;
+	}
+	  degree=0; 
+	} 
   
-  //printf(" \n");
-  //printf("Stopien grafu wynosi: %d\n", vmax); 
+  printf(" \n");
+  printf("Stopien grafu wynosi: %d\n", vmax); 
       
-  y = 0;
-  printf("%d", memory[y]);
-  printf("%d\n", memory[y+1]);
-   for(y = 0; y < vertices; y++){
- pom = memory[y];
- visited[pom] += 1;
+  printf("\n\t Macierz sasiedztwa ma nastepujaca postac :\n");
+
+  for(x=0; x<vertices; x++){
+    for(y=0; y<vertices-1; y++){     
+      printf("\t %d",graph[x][y]);} 
+    printf("\t %d\n",graph[x][y]);}
+ 
+ y = 0;
+ 
+  //sprawdzanie czy graf jest grafem eulerowskim
+
+ for(y = 0; y < vertices; y++){
+   pom = memory[y];
+   visited[pom] += 1;
  }
    for(y = 0; y < vertices; y++){
- if(visited[y] = 0 ){
+     if(visited[y] = 0 ){
    printf("Graf nie jest grafem eulerowskim");}
- else printf("Graf jest eulerowski");
+     else printf("Graf jest eulerowski");
  } 
 }
