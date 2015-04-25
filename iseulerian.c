@@ -66,14 +66,14 @@ int main(){
       return 0;}
      
   // obliczanie stopnia grafu
-	if ( degree > vmax ){
-	  max = degree;
-	}
-	  degree=0; 
-	} 
+	   //       if ( degree > vmax ){
+	   // vmax = degree;
+	   // }
+	     degree=0; 
+	    } 
   
-  printf(" \n");
-  printf("Stopien grafu wynosi: %d\n", vmax); 
+  //printf(" \n");
+  //printf("Stopien grafu wynosi: %d\n", vmax); 
       
   printf("\n\t Macierz sasiedztwa ma nastepujaca postac :\n");
 
@@ -92,7 +92,11 @@ int main(){
  }
    for(y = 0; y < vertices; y++){
      if(visited[y] = 0 ){
-   printf("Graf nie jest grafem eulerowskim");}
-     else printf("Graf jest eulerowski");
- } 
+       status = 0;}
+     else status = 1;
+ }
+   if(status = 1){
+     printf("Gratulacje! Graf eulerowski.\n"); }
+   if(status = 0){
+     printf("Graf niespojny lub posiada wierzcholek nieparzystgo stopnia\n"); }
 }
